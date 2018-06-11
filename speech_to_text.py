@@ -77,13 +77,13 @@ class STT:
 		if self.file_name != None:
 			self.audio_file = "audio_files\\" + str(self.file_name)
 		else:
-			urllib.request.urlretrieve(self.url, "audio_files\\download.mp3")
-			self.audio_file = "audio_files\\download.mp3"
+			urllib.request.urlretrieve(self.url, "download.mp3")
+			self.audio_file = "download.mp3"
 		extension = os.path.splitext(self.audio_file)[1]
 		if extension == ".mp3":
-			AudioSegment.from_file(self.audio_file).export("audio_files\\file.wav", format="wav")
+			AudioSegment.from_file(self.audio_file).export("file.wav", format="wav")
 			del self.audio_file
-			self.audio_file = 'audio_files\\file.wav'
+			self.audio_file = 'file.wav'
 		with contextlib.closing(wave.open(self.audio_file,'r')) as f:
 			frames = f.getnframes()
 			rate = f.getframerate()
@@ -117,7 +117,7 @@ class STT:
 # main function
 def main():
 
-	file_input = input("\n> only .mp3 files to be provided if you are using a link \n> only .mp3 or .wav files to be provided if you are using a file name \n\n Enter a url or a file name in the audio_files folder: ")
+	file_input = input("\n> only .mp3 files to be provided if you are using a link \n> only .mp3 or .wav files to be provided if you are using a file name \n\n Enter a url or a file name: ")
 	if url(file_input):
 		test_object = STT(url = file_input)
 	else:
@@ -128,11 +128,11 @@ def main():
 	""" 
 	test examples:
 
-	1) test_1.mp3, test_2.wav or test_3.mp3 file in the audio_files folder
+	1) test_1.mp3, test_2.wav or test_3.mp3 files
 	2) url which provides an mp3 file: https://s3.us-east-2.amazonaws.com/rohanbaisantrymp3klenty/test_3.mp3 [ public amazon s3 bucket which holds an mp3 file]
 
-	once the file is downloaded it will store it as download.mp3 in the audio_files folder. 
-	file.wav in the audio_files folder is the .wav file created if the input file was a .mp3 file.
+	once the file is downloaded it will store it as download.mp3
+	file.wav is the .wav file created if the input file was a .mp3 file.
 
 	"""
 
